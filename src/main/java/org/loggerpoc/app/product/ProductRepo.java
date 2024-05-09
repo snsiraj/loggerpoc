@@ -1,4 +1,4 @@
-package org.loggerpoc.app.app.product;
+package org.loggerpoc.app.product;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -66,7 +66,7 @@ public class ProductRepo {
   }
 
   public Product findProductBy(long id) {
-    log.info("CustomerRepo findCustomerBy method called");
+    log.info("ProductRepo findProductrBy method called");
     final String SELECT_PRD_SQL = "SELECT * FROM product WHERE id = ?";
     Product p = null;
     try {
@@ -75,11 +75,11 @@ public class ProductRepo {
         product.setId(rs.getInt("id"));
         product.setName(rs.getString("name"));
         product.setModel(rs.getString("model"));
-        product.setRelversion(rs.getString("releaseversion"));
+        product.setRelversion(rs.getString("release_version"));
         return product;
       });
     } catch (DataAccessException e) {
-      log.error("Product not found", id);
+      log.error("Product not found with id:{}", id);
       return p;
     }
     return p;

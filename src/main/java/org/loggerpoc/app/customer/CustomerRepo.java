@@ -1,4 +1,4 @@
-package org.loggerpoc.app.app.customer;
+package org.loggerpoc.app.customer;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;

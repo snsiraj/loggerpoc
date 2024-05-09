@@ -1,4 +1,4 @@
-package org.loggerpoc.loggepoc.framework.aop;
+package org.loggerpoc.framework.aop;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,8 +8,8 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.loggerpoc.loggepoc.framework.dao.LogDetailDao;
-import org.loggerpoc.loggepoc.framework.entity.LoggerMessage;
+import org.loggerpoc.framework.dao.LogDetailDao;
+import org.loggerpoc.framework.entity.LoggerMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class LogAspect {
     private LogDetailDao logDetailDao;
 
 
-    @Around("com.applogger.aop.AppPointcuts.mainPointcut()")
+    @Around("org.loggerpoc.framework.aop.AppPointcuts.mainPointcut()")
     public Object calculateMethodTimeAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
 
         final Logger log = LoggerFactory.getLogger(joinPoint.getTarget().getClass());

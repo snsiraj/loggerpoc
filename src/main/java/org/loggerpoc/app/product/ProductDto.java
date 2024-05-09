@@ -1,4 +1,4 @@
-package org.loggerpoc.app.app.product;
+package org.loggerpoc.app.product;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;

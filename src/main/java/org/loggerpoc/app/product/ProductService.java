@@ -1,4 +1,4 @@
-package org.loggerpoc.app.app.product;
+package org.loggerpoc.app.product;
 
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;

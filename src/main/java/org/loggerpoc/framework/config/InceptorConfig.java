@@ -1,6 +1,6 @@
-package org.loggerpoc.loggepoc.framework.config;
+package org.loggerpoc.framework.config;
 
-import org.loggerpoc.loggepoc.framework.interceptor.CustomHeaderInterceptor;
+import org.loggerpoc.framework.interceptor.CustomHeaderInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

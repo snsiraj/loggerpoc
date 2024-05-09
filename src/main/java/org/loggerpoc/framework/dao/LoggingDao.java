@@ -1,7 +1,7 @@
-package org.loggerpoc.loggepoc.framework.dao;
+package org.loggerpoc.framework.dao;
 
 
-import org.loggerpoc.loggepoc.framework.entity.LogReqRes;
+import org.loggerpoc.framework.entity.LogReqRes;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

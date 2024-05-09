@@ -15,7 +15,7 @@ public class AppPointcuts {
     @Pointcut("within(@org.springframework.stereotype.Repository *)")
     public void repoPointcut() {}
 
-    @Pointcut("execution(* com.applogger..*(..))")
+    @Pointcut("execution(* org.loggerpoc.app..*(..))")
     public void appPointcut() {}
 
     @Pointcut("appPointcut() && (controllerPointcut() || servicePointcut() || repoPointcut())")

@@ -1,5 +1,6 @@
-package org.loggerpoc.app.app.customerproductmap;
+package org.loggerpoc.app.customerproductmap;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class CustomerProductMapService {
   ModelMapper objMapper;
   @Autowired
   private CustomerProductMapRepo customerProductMapRepo;
+  @Autowired
+  private HttpServletRequest httpServletRequest;
 
   public CustomerProductMapDto getAllCustomerForProduct(int productid) {
     log.info("CustomerProductMap Service Handling list customer product maps: ");
@@ -69,6 +72,7 @@ public class CustomerProductMapService {
 
     WebClient webClient = WebClient.create("http://localhost:8081/customer/" + customerid);
     HttpStatusCode statusCode = webClient.get()
+            .header("X-App-Name", getTransactionId())
             .retrieve()
             .toEntity(String.class)
             .flatMap(e-> Mono.just(e.getStatusCode()))
@@ -81,6 +85,7 @@ public class CustomerProductMapService {
   private boolean isValidProduct(long productid) {
     WebClient webClient = WebClient.create("http://localhost:8081/product/" + productid);
     HttpStatusCode statusCode = webClient.get()
+        .header("X-App-Name", getTransactionId())
         .retrieve()
         .toEntity(String.class)
         .flatMap(e-> Mono.just(e.getStatusCode()))
@@ -92,6 +97,9 @@ public class CustomerProductMapService {
 
   private boolean isAlreadyMapped(long customerid, long productid) {
     return customerProductMapRepo.isAlreadyMapped(customerid, productid);
+  }
+  private String getTransactionId() {
+    return (String) httpServletRequest.getAttribute("X-App-Name");
   }
 
 }

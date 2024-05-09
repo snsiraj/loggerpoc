@@ -1,4 +1,4 @@
-package org.loggerpoc.app.app.customerproductmap;
+package org.loggerpoc.app.customerproductmap;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class CustomerProductMapController {
   private CustomerProductMapService customerProductMapService;
 
 
-  @PutMapping("/customer/{customerid}/product/{productid}")
+  @PutMapping("/customer/{customerid}/product/{productid}/")
   ResponseEntity<String> updateCustomerProductMap(@PathVariable long customerid,
       @PathVariable long productid) {
     try {

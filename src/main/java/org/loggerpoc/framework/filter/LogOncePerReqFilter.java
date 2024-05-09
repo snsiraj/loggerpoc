@@ -1,4 +1,4 @@
-package org.loggerpoc.loggepoc.framework.filter;
+package org.loggerpoc.framework.filter;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
-import org.loggerpoc.loggepoc.framework.dao.LoggingDao;
-import org.loggerpoc.loggepoc.framework.entity.LogReqRes;
+import org.loggerpoc.framework.dao.LoggingDao;
+import org.loggerpoc.framework.entity.LogReqRes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;

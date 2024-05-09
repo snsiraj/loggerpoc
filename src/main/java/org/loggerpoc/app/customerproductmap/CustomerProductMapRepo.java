@@ -1,4 +1,4 @@
-package org.loggerpoc.app.app.customerproductmap;
+package org.loggerpoc.app.customerproductmap;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

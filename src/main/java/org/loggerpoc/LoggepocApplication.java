@@ -1,4 +1,4 @@
-package org.loggerpoc.loggepoc;
+package org.loggerpoc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

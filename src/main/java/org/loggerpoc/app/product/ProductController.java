@@ -1,4 +1,4 @@
-package org.loggerpoc.app.app.product;
+package org.loggerpoc.app.product;
 
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -24,16 +24,16 @@ public class ProductController {
   private ProductService productService;
 
   @PostMapping("/add")
-  ResponseEntity<ProductDto> addCustomer(@RequestBody ProductDto productDto) {
-    log.info("Customer Controller Handling add customer: {}", productDto);
+  ResponseEntity<ProductDto> addProduct(@RequestBody ProductDto productDto) {
+    log.info("Product Controller Handling add customer: {}", productDto);
     ProductDto productDtoRes = customerService.addProduct(productDto);
     return ResponseEntity.ok(productDtoRes);
   }
 
   @PutMapping("/{id}")
-  ResponseEntity<String> updateCustomer(@RequestBody ProductDto productDto, @PathVariable long id) {
+  ResponseEntity<String> updateProductr(@RequestBody ProductDto productDto, @PathVariable long id) {
     try {
-      log.info("Customer Controller Handling update customer: {}", productDto);
+      log.info("Product Controller Handling update customer: {}", productDto);
       productService.updateProduct(productDto, id);
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body("Customer not found");
@@ -42,15 +42,15 @@ public class ProductController {
   }
 
   @GetMapping
-  ResponseEntity<List<ProductDto>> getAllCustomers() {
-    log.info("Customer Controller Handling list customers: ");
+  ResponseEntity<List<ProductDto>> getAllProducts() {
+    log.info("Product Controller Handling list customers: ");
     List<ProductDto> productDtoResList = productService.getAllProducts();
     return ResponseEntity.ok(productDtoResList);
   }
 
   @GetMapping("/{id}")
-  ResponseEntity<ProductDto> getCustomerById(@PathVariable long id) {
-    log.info("Customer Controller Handling get customer by id: {}", id);
+  ResponseEntity<ProductDto> getProductById(@PathVariable long id) {
+    log.info("Product Controller Handling get customer by id: {}", id);
     ProductDto productDtoRes = productService.getProductById(id);
     if (productDtoRes == null) {
       return ResponseEntity.status (HttpStatus.NOT_FOUND).build();

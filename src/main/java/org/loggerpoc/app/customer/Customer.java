@@ -1,4 +1,4 @@
-package org.loggerpoc.app.app.customer;
+package org.loggerpoc.app.customer;
 
 import lombok.Data;
 import org.springframework.context.annotation.Scope;

@@ -1,7 +1,6 @@
 package org.loggerpoc.app.customer;
 
 import java.util.List;
-import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ public class CustomerService {
 
 
   public CustomerDto addCustomer(CustomerDto customerDto) {
-    log.info("Customer Service Handling add customer: {}", customerDto);
+    log.info("Customer Service Handling add customer");
     Customer customerEntity = objMapper.map(customerDto, Customer.class);
     Customer customerEntitySaved = customerRepo.save(customerEntity);
     return objMapper.map(customerEntitySaved, CustomerDto.class);
@@ -26,16 +25,16 @@ public class CustomerService {
   }
 
   public void updateCustomer(CustomerDto customerDto, long id) throws Exception {
-    log.info("Customer Service Handling update customer: {}", customerDto);
+    log.info("Customer Service Handling update customer");
     if (id == 1) {
-      log.info("Customer Service Handling update customer: {}", customerDto);
+      log.info("Customer Service Handling update customer");
     } else {
       throw new Exception("Customer not found");
     }
   }
 
   public List<CustomerDto> getAllCustomers() {
-    log.info("Customer Service Handling list customers: ");
+    log.info("Customer Service Handling list customers");
     return customerRepo.findAll()
         .stream()
         .map(customer -> objMapper.map(customer, CustomerDto.class))
@@ -43,11 +42,14 @@ public class CustomerService {
 
   }
 
-  public CustomerDto getCustomerById(long id) {
-    log.info("Customer Service Handling get customer by id: {}", id);
-    Optional<Customer> customer = Optional.ofNullable(customerRepo.findCustomerBy(id));
-    customer.orElseThrow(() -> new RuntimeException("Customer not found"));
-    return objMapper.map(customerRepo.findCustomerBy(id), CustomerDto.class);
+  public CustomerDto getCustomerById(long id) throws CustomerNotFoundException {
+    log.info("Customer Service Handling get customer by id");
+    Customer customer = customerRepo.findCustomerBy(id);
+    if (customer == null) {
+      throw new CustomerNotFoundException("Customer not found in the Repository.");
+    }
+
+    return objMapper.map(customer, CustomerDto.class);
 
   }
 

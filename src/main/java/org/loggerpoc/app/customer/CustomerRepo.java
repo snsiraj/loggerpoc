@@ -69,20 +69,19 @@ public class CustomerRepo {
     log.info("CustomerRepo findCustomerBy method called");
     final String SELECT_CUST_SQL = "SELECT * FROM customer WHERE id = ?";
     Customer c = null;
-    try {
-      c = jdbcTemplate.queryForObject(SELECT_CUST_SQL, new Object[]{id}, (rs, rowNum) -> {
-        Customer customer = new Customer();
-        customer.setId(rs.getInt("id"));
-        customer.setFirstName(rs.getString("first_name"));
-        customer.setLastName(rs.getString("last_name"));
-        customer.setMobile(rs.getString("mobile"));
-        return customer;
-      });
-    } catch (DataAccessException e) {
-      log.error("Customer not found with id: {}", id);
-      return c;
+    List<Customer> customerList=jdbcTemplate.query(SELECT_CUST_SQL, new Object[]{id}, (rs, rowNum) -> {
+      Customer customer = new Customer();
+      customer.setId(rs.getInt("id"));
+      customer.setFirstName(rs.getString("first_name"));
+      customer.setLastName(rs.getString("last_name"));
+      customer.setMobile(rs.getString("mobile"));
+      return customer;
+    });
+    if(!customerList.isEmpty()){
+      c=customerList.get(0);
     }
     return c;
+
   }
 
 }

@@ -17,43 +17,43 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/customer")
 @Slf4j
 public class CustomerController {
-  
-       @Autowired
-       private CustomerService customerService;
-  
-       @PostMapping("/add")
-       ResponseEntity<CustomerDto> addCustomer(@RequestBody CustomerDto customerDto){
-           log.info("Customer Controller Handling add customer: {}", customerDto);
-           CustomerDto customerDtoRes = customerService.addCustomer(customerDto);
-           return ResponseEntity.ok(customerDtoRes);
-       }
-  
-       @PutMapping("/{id}")
-       ResponseEntity<String> updateCustomer(@RequestBody CustomerDto customerDto, @PathVariable long id){
-           try {
-               log.info("Customer Controller Handling update customer: {}", customerDto);
-               customerService.updateCustomer(customerDto,id);
-           } catch (Exception e) {
-               return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body("Customer not found");
-           }
-           return ResponseEntity.ok("Customer updated successfully.");
-       }
-  
-       @GetMapping
-       ResponseEntity<List<CustomerDto>> getAllCustomers(){
-           log.info("Customer Controller Handling list customers: ");
-           List<CustomerDto> customerDtoResList = customerService.getAllCustomers();
-           return ResponseEntity.ok(customerDtoResList);
-       }
-       @GetMapping("/{id}")
-        ResponseEntity<CustomerDto> getCustomerById(@PathVariable long id){
-            log.info("Customer Controller Handling get customer by id: {}", id);
-         try {
-           CustomerDto customerDtoRes = customerService.getCustomerById(id);
-              return ResponseEntity.ok(customerDtoRes);
-         } catch (Exception e) {
-              return ResponseEntity.notFound().build();
-         }
-       }
+
+  @Autowired
+  private CustomerService customerService;
+
+  @PostMapping("/add")
+  ResponseEntity<CustomerDto> addCustomer(@RequestBody CustomerDto customerDto) {
+    log.info("Customer Controller Handling add customer");
+    CustomerDto customerDtoRes = customerService.addCustomer(customerDto);
+    return ResponseEntity.ok(customerDtoRes);
+  }
+
+  @PutMapping("/{id}")
+  ResponseEntity<String> updateCustomer(@RequestBody CustomerDto customerDto,
+      @PathVariable long id) {
+    try {
+      log.info("Customer Controller Handling update customer");
+      customerService.updateCustomer(customerDto, id);
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body("Customer not found");
+    }
+    return ResponseEntity.ok("Customer updated successfully.");
+  }
+
+  @GetMapping
+  ResponseEntity<List<CustomerDto>> getAllCustomers() {
+    log.info("Customer Controller Handling list customers");
+    List<CustomerDto> customerDtoResList = customerService.getAllCustomers();
+    return ResponseEntity.ok(customerDtoResList);
+  }
+
+  @GetMapping("/{id}")
+  ResponseEntity<CustomerDto> getCustomerById(@PathVariable long id) {
+    CustomerDto customerDtoRes = null;
+    log.info("Customer Controller Handling get customer by id");
+    customerDtoRes = customerService.getCustomerById(id);
+    return ResponseEntity.ok(customerDtoRes);
+
+  }
 
 }

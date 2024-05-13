@@ -2,7 +2,6 @@ package org.loggerpoc.app.customerproductmap;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,14 +21,9 @@ public class CustomerProductMapController {
   @PutMapping("/customer/{customerid}/product/{productid}/")
   ResponseEntity<String> updateCustomerProductMap(@PathVariable long customerid,
       @PathVariable long productid) {
-    try {
-      log.info("CustomerProductMap Controller Handling map customer {} product {}", customerid,
-          productid);
-      customerProductMapService.updateCustomerProductMap(customerid, productid);
-    } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND.value())
-          .body("Customer product map not found");
-    }
+    log.info("CustomerProductMap Controller Handling map customer {} product {}", customerid,
+        productid);
+    customerProductMapService.updateCustomerProductMap(customerid, productid);
     return ResponseEntity.ok("Customer product map updated successfully.");
   }
 
@@ -57,7 +51,6 @@ public class CustomerProductMapController {
     }
     return ResponseEntity.ok(customerProductMapDto);
   }
-
 
 
 }

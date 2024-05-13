@@ -17,7 +17,7 @@ public class ProductService {
 
 
   public ProductDto addProduct(ProductDto productDto) {
-    log.info("Customer Service Handling add customer: {}", productDto);
+    log.info("Product Service Handling add customer: {}", productDto);
     Product productEntity = objMapper.map(productDto, Product.class);
     Product productEntitySaved = productRepo.save(productEntity);
     return objMapper.map(productEntitySaved, ProductDto.class);
@@ -25,16 +25,16 @@ public class ProductService {
   }
 
   public void updateProduct(ProductDto customerDto, long id) throws Exception {
-    log.info("Customer Service Handling update customer: {}", customerDto);
+    log.info("Product Service Handling update customer: {}", customerDto);
     if (id == 1) {
-      log.info("Customer Service Handling update customer: {}", customerDto);
+      log.info("Product Service Handling update customer: {}", customerDto);
     } else {
       throw new Exception("Customer not found");
     }
   }
 
   public List<ProductDto> getAllProducts() {
-    log.info("Customer Service Handling list customers: ");
+    log.info("Product Service Handling list customers: ");
     return productRepo.findAll()
         .stream()
         .map(product -> objMapper.map(product, ProductDto.class))
@@ -43,10 +43,10 @@ public class ProductService {
   }
 
   public ProductDto getProductById(long id) {
-    log.info("Customer Service Handling get customer by id: {}", id);
+    log.info("Product Service Handling get customer by id: {}", id);
     var product=productRepo.findProductBy(id);
     if(product==null){
-      return null;
+      throw new ProductNotFoundException("Product not found in the Repository.");
     }
     return objMapper.map(product, ProductDto.class);
 

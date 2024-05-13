@@ -70,7 +70,7 @@ public class ProductRepo {
     final String SELECT_PRD_SQL = "SELECT * FROM product WHERE id = ?";
     Product p = null;
     try {
-        p=jdbcTemplate.queryForObject(SELECT_PRD_SQL, new Object[]{id}, (rs, rowNum) -> {
+      p = jdbcTemplate.queryForObject(SELECT_PRD_SQL, new Object[]{id}, (rs, rowNum) -> {
         Product product = new Product();
         product.setId(rs.getInt("id"));
         product.setName(rs.getString("name"));
@@ -78,11 +78,10 @@ public class ProductRepo {
         product.setRelversion(rs.getString("release_version"));
         return product;
       });
-    } catch (DataAccessException e) {
-      log.error("Product not found with id:{}", id);
       return p;
+    } catch (DataAccessException e) {
+      return null;
     }
-    return p;
 
   }
 

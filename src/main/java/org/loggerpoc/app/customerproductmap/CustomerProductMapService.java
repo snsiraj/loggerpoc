@@ -26,9 +26,10 @@ public class CustomerProductMapService {
     CustomerProductMapDto customerProductMapDto = null;
     CustomerProductMap customerProductMap = customerProductMapRepo.findAllCustomerForProduct(
         productid);
-    if (customerProductMap == null)
+    if (customerProductMap == null) {
       return null;
-    customerProductMapDto = objMapper.map(customerProductMap,CustomerProductMapDto.class);
+    }
+    customerProductMapDto = objMapper.map(customerProductMap, CustomerProductMapDto.class);
     return customerProductMapDto;
   }
 
@@ -61,9 +62,7 @@ public class CustomerProductMapService {
         productid)) {
       customerProductMapRepo.mapCustomerProduct(customerid, productid);
     } else {
-      log.error("CustomerProductMap Service Handling map customer {} product {} failed", customerid,
-          productid);
-      throw new RuntimeException("Customer or Product not found or already mapped");
+      throw new CustomerProductMapException("Customer or Product not found or already mapped");
     }
 
   }
@@ -72,13 +71,12 @@ public class CustomerProductMapService {
 
     WebClient webClient = WebClient.create("http://localhost:8081/customer/" + customerid);
     HttpStatusCode statusCode = webClient.get()
-            .header("X-App-Name", getTransactionId())
-            .retrieve()
-            .toEntity(String.class)
-            .flatMap(e-> Mono.just(e.getStatusCode()))
-            .onErrorReturn(HttpStatus.NOT_FOUND)
-            .block();
-    log.info("Customer API status code: {}", statusCode);
+        .header("X-App-Name", getTransactionId())
+        .retrieve()
+        .toEntity(String.class)
+        .flatMap(e -> Mono.just(e.getStatusCode()))
+        .onErrorReturn(HttpStatus.NOT_FOUND)
+        .block();
     return statusCode == HttpStatus.OK;
   }
 
@@ -88,16 +86,16 @@ public class CustomerProductMapService {
         .header("X-App-Name", getTransactionId())
         .retrieve()
         .toEntity(String.class)
-        .flatMap(e-> Mono.just(e.getStatusCode()))
+        .flatMap(e -> Mono.just(e.getStatusCode()))
         .onErrorReturn(HttpStatus.NOT_FOUND)
         .block();
-    log.info("Product API status code: {}", statusCode);
     return statusCode == HttpStatus.OK;
   }
 
   private boolean isAlreadyMapped(long customerid, long productid) {
     return customerProductMapRepo.isAlreadyMapped(customerid, productid);
   }
+
   private String getTransactionId() {
     return (String) httpServletRequest.getAttribute("X-App-Name");
   }

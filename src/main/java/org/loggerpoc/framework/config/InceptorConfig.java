@@ -10,5 +10,6 @@ public class InceptorConfig implements WebMvcConfigurer{
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new CustomHeaderInterceptor());
+
     }
 }

@@ -43,22 +43,18 @@ public class CustomerProductMapService {
   }
 
   public void deleteCustomerProductMap(long customerid, long productid) {
-    if (isValidCusomter(customerid) && isValidProduct(productid) && isAlreadyMapped(customerid,
+    if (isValid("customer",customerid) && isValid("product",productid) && isAlreadyMapped(customerid,
         productid)) {
       customerProductMapRepo.deleteCustomerProductMap(customerid, productid);
     } else {
-      log.error("CustomerProductMap Service Handling delete customer {} product {} failed",
-          customerid,
-          productid);
+      log.error("CustomerProductMap Service Handling delete customer <> product failed");
     }
-    log.info("CustomerProductMap Service Handling delete customer {} product {}", customerid,
-        productid);
+    log.info("CustomerProductMap Service Handling delete customer <> product");
   }
 
   public void updateCustomerProductMap(long customerid, long productid) {
-    log.info("CustomerProductMap Service Handling map customer {} product {}", customerid,
-        productid);
-    if (isValidCusomter(customerid) && isValidProduct(productid) && !isAlreadyMapped(customerid,
+    log.info("CustomerProductMap Service Handling map customer <> product");
+    if (isValid("customer",customerid) && isValid("product",productid) && !isAlreadyMapped(customerid,
         productid)) {
       customerProductMapRepo.mapCustomerProduct(customerid, productid);
     } else {
@@ -67,10 +63,16 @@ public class CustomerProductMapService {
 
   }
 
-  private boolean isValidCusomter(long customerid) {
+  @Autowired
+  private WebClient webClient;
 
-    WebClient webClient = WebClient.create("http://localhost:8081/customer/" + customerid);
-    HttpStatusCode statusCode = webClient.get()
+  private boolean isValid(String action,long id) {
+    String url = "http://localhost:8081/%s/%s".formatted(action, id);
+//    WebClient webClient = WebClient
+//        .create(url);
+    HttpStatusCode statusCode = webClient
+        .get()
+        .uri(url)
         .header("X-App-Name", getTransactionId())
         .retrieve()
         .toEntity(String.class)
@@ -80,17 +82,7 @@ public class CustomerProductMapService {
     return statusCode == HttpStatus.OK;
   }
 
-  private boolean isValidProduct(long productid) {
-    WebClient webClient = WebClient.create("http://localhost:8081/product/" + productid);
-    HttpStatusCode statusCode = webClient.get()
-        .header("X-App-Name", getTransactionId())
-        .retrieve()
-        .toEntity(String.class)
-        .flatMap(e -> Mono.just(e.getStatusCode()))
-        .onErrorReturn(HttpStatus.NOT_FOUND)
-        .block();
-    return statusCode == HttpStatus.OK;
-  }
+
 
   private boolean isAlreadyMapped(long customerid, long productid) {
     return customerProductMapRepo.isAlreadyMapped(customerid, productid);

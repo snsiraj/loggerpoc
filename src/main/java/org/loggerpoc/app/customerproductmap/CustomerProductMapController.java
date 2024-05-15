@@ -21,8 +21,7 @@ public class CustomerProductMapController {
   @PutMapping("/customer/{customerid}/product/{productid}/")
   ResponseEntity<String> updateCustomerProductMap(@PathVariable long customerid,
       @PathVariable long productid) {
-    log.info("CustomerProductMap Controller Handling map customer {} product {}", customerid,
-        productid);
+    log.info("CustomerProductMap Controller Handling map customer <> product");
     customerProductMapService.updateCustomerProductMap(customerid, productid);
     return ResponseEntity.ok("Customer product map updated successfully.");
   }
@@ -31,10 +30,10 @@ public class CustomerProductMapController {
   ResponseEntity<CustomerProductMapDto> getMappedProductsForCustomer(@PathVariable int customerid) {
     CustomerProductMapDto customerProductMapDto = null;
     try {
-      log.info("CustomerProductMap Controller Handling get product for customer: {}", customerid);
+      log.info("CustomerProductMap Controller Handling get product for customer");
       customerProductMapDto = customerProductMapService.getAllProductsForCustomer(customerid);
     } catch (Exception e) {
-      log.error("CustomerProductMap Controller products not found for customer: {}", customerid);
+      log.error("CustomerProductMap Controller products not found for customer");
     }
     return ResponseEntity.ok(customerProductMapDto);
   }
@@ -44,10 +43,10 @@ public class CustomerProductMapController {
     CustomerProductMapDto customerProductMapDto = null;
 
     try {
-      log.info("CustomerProductMap Controller Handling get customer for product: {}", productid);
+      log.info("CustomerProductMap Controller Handling get customer for product");
       customerProductMapDto = customerProductMapService.getAllCustomerForProduct(productid);
     } catch (Exception e) {
-      log.error("CustomerProductMap Controller customers not found for product: {}", productid);
+      log.error("CustomerProductMap Controller customers not found for product");
     }
     return ResponseEntity.ok(customerProductMapDto);
   }

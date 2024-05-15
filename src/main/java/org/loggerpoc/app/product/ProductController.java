@@ -25,7 +25,7 @@ public class ProductController {
 
   @PostMapping("/add")
   ResponseEntity<ProductDto> addProduct(@RequestBody ProductDto productDto) {
-    log.info("Product Controller Handling add customer");
+    log.info("Product Controller Handling add product");
     ProductDto productDtoRes = customerService.addProduct(productDto);
     return ResponseEntity.ok(productDtoRes);
   }
@@ -33,7 +33,7 @@ public class ProductController {
   @PutMapping("/{id}")
   ResponseEntity<String> updateProduct(@RequestBody ProductDto productDto, @PathVariable long id) {
     try {
-      log.info("Product Controller Handling update customer");
+      log.info("Product Controller Handling update product");
       productService.updateProduct(productDto, id);
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body("Customer not found");
@@ -43,14 +43,14 @@ public class ProductController {
 
   @GetMapping
   ResponseEntity<List<ProductDto>> getAllProducts() {
-    log.info("Product Controller Handling list customers: ");
+    log.info("Product Controller Handling list product: ");
     List<ProductDto> productDtoResList = productService.getAllProducts();
     return ResponseEntity.ok(productDtoResList);
   }
 
   @GetMapping("/{id}")
   ResponseEntity<ProductDto> getProductById(@PathVariable long id) {
-    log.info("Product Controller Handling get customer by id");
+    log.info("Product Controller Handling get product by id");
     ProductDto productDtoRes = productService.getProductById(id);
     return ResponseEntity.ok(productDtoRes);
   }

@@ -50,7 +50,7 @@ public class LogAspect {
 
   @AfterThrowing(value = "org.loggerpoc.framework.aop.AppPointcuts.appPointcut()", throwing = "ex")
   public void logAfterThrowingAllMethods(JoinPoint joinPoint, Exception ex) {
-    logAndSave(joinPoint, ex, 0L);
+    logAndSave(joinPoint, ex.getMessage(), 0L);
   }
 
   private void logAndSave(JoinPoint joinPoint, Object result, long executionTime) {
@@ -70,6 +70,4 @@ public class LogAspect {
     logDetailDao.save(loggerMessage);
     System.out.println();
   }
-
-
 }

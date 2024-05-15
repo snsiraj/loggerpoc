@@ -16,23 +16,27 @@ public class AppExceptionHandler {
 
   @Value("${http.message.exception.customer.notfound}")
   private String customerNotFoundMessage;
-  @ExceptionHandler(CustomerNotFoundException.class)
-  public ResponseEntity<String> handleCustomerNotFoundException(CustomerNotFoundException e) {
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(customerNotFoundMessage);
-  }
-
   @Value("${http.message.exception.product.notfound}")
   private String productNotFoundMessage;
-  @ExceptionHandler(ProductNotFoundException.class)
-  public ResponseEntity<String> handleCustomerProductMapException(ProductNotFoundException e) {
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(productNotFoundMessage);
-  }
-
   @Value("${http.message.exception.customerproductmap.notpossible}")
   private String customerProductNotFoundMessage;
+
+  @ExceptionHandler(CustomerNotFoundException.class)
+  public ResponseEntity<String> handleCustomerNotFoundException(CustomerNotFoundException e) {
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+        .body(customerNotFoundMessage);
+  }
+
+  @ExceptionHandler(ProductNotFoundException.class)
+  public ResponseEntity<String> handleCustomerProductMapException(ProductNotFoundException e) {
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+        .body(productNotFoundMessage);
+  }
+
   @ExceptionHandler(CustomerProductMapException.class)
   public ResponseEntity<String> handleCustomerProductMapException(CustomerProductMapException e) {
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(customerProductNotFoundMessage);
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+        .body(customerProductNotFoundMessage);
   }
 
 }
